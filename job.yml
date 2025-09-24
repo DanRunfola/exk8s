@@ -1,0 +1,33 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: python-job
+  namespace: dsmillerrunfol
+spec:
+  activeDeadlineSeconds: 600
+  ttlSecondsAfterFinished: 3600
+  template:
+    spec:
+      restartPolicy: Never
+      securityContext:
+        runAsUser: 71032
+        runAsGroup: 9915
+      containers:
+        - name: pythontest
+          image: ghcr.io/wmgeolab/gb-base:latest
+          command: ["python3", "/sciclone/home/dsmillerrunfol/tmp/ex.py"]
+          resources:
+            requests:
+              memory: "8Gi"
+              cpu: "2"
+            limits:
+              memory: "16Gi"
+              cpu: "4"
+          volumeMounts:
+            - name: home
+              mountPath: /sciclone
+      volumes:
+        - name: home
+          nfs:
+            server: 128.239.56.166
+            path: /sciclone/
