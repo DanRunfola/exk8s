@@ -10,8 +10,8 @@ spec:
     spec:
       restartPolicy: Never
       securityContext:
-        runAsUser: 71032
-        runAsGroup: 9915
+        runAsUser: 71032 #run "id" on terminal to find this.
+        runAsGroup: 9915 #run "id" on terminal to find this.
       containers:
         - name: pythontest
           image: ghcr.io/wmgeolab/gb-base:latest
